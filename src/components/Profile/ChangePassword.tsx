@@ -19,13 +19,20 @@ const ChangePassword = ({close}: Props) => {
     }
 
     const handleClickSave = () => {
+        const {token}=JSON.parse(localStorage.getItem("state")!)
+        const data:string=token.split(' ')[1]
+        const decodeData=atob(data)
+        const password=decodeData.split(":")[1]
 
-        if (confirmPassword === newPassword) {
-            dispatch(changePassword(newPassword));
-        } else {
-            alert('new password and confirm new password are different');
-        }
-        close();
+        if(password===oldPassword) {
+
+            if (confirmPassword === newPassword) {
+                dispatch(changePassword(newPassword));
+            } else {
+                alert('new password and confirm new password are different');
+            }
+            close();
+        }else alert("Old password is not correct");
     }
 
     return (
